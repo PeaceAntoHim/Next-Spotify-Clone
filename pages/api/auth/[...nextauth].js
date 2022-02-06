@@ -60,7 +60,7 @@ export default NextAuth({
 
             /* Retun previous token if the access token has not expired yet */
             if (Date.now() < token.accessTokenExpires) {
-                conslog.log("exiting access token is valid");
+                console.log("exiting access token is valid");
                 return token;
             } 
             /* Access token has expired, so we need to refresh it ..*/
