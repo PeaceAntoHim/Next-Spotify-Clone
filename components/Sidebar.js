@@ -13,7 +13,7 @@ import { signOut, useSession } from 'next-auth/react';
 function Sidebar() {
     const spotifyApi = useSpotify();
     /* Made Middleware to scure web */
-    const { data: session, status }     = useSession();
+    const { data: session, status } = useSession();
     /* made statment playlist */
     const [playlists, setPlaylists] = useState([]);
 
@@ -68,15 +68,12 @@ function Sidebar() {
                 <hr className="border-t-[0.1px] border-gray-900" />
 
                 {/* Playlist... */}
-                <p className="cursor-pointer hover:text-white">Playlist Name...</p>
-                <p className="cursor-pointer hover:text-white">Playlist Name...</p>
-                <p className="cursor-pointer hover:text-white">Playlist Name...</p>
-                <p className="cursor-pointer hover:text-white">Playlist Name...</p>
-                <p className="cursor-pointer hover:text-white">Playlist Name...</p>
-                <p className="cursor-pointer hover:text-white">Playlist Name...</p>
-                <p className="cursor-pointer hover:text-white">Playlist Name...</p>
-                <p className="cursor-pointer hover:text-white">Playlist Name...</p>
-                <p className="cursor-pointer hover:text-white">Playlist Name...</p>
+                {playlists.map((playlist) => (
+                    <p key={playlist.id} className="cursor-pointer hover:text-white">
+                        {playlist.name}
+                    </p>
+                ))}
+              
 
             </div>
         </div>
