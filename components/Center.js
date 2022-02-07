@@ -1,10 +1,12 @@
 import { shuffle } from 'lodash'; 
-import { useRecoilState } from 'recoil';
+// import spotifyApi from '../lib/spotify';
 import { useEffect, useState } from 'react';
+import useSpotify from '../hooks/useSpotify';
 import { useSession } from 'next-auth/react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { ChevronDownIcon } from '@heroicons/react/outline';
 import { playlistIdState, playlistState } from '../atoms/playlistAtom';
-import spotifyApi from '../lib/spotify';
+import Songs from '../components/Songs';
 
 const colors = [
     "from-indigo-500",
@@ -18,17 +20,18 @@ const colors = [
 
 
 function Center() {
+    const spotifyApi = useSpotify();
     const { data: session } = useSession();
     const [color, setColor] = useState(null);
-    const [playlistId, setPlaylistId] = useRecoilState(playlistIdState);
-    const [playlist, setPlaylist] = useRecoilState(playlistState)
+    const playlistId = useRecoilValue(playlistIdState)
+    const [playlist, setPlaylist] = useRecoilState(playlistState);
 
     useEffect(() => {
         setColor(shuffle(colors).pop());
     }, [playlistId]);
 
     /* Set a playlist */
-     useEffect=(() => {
+     useEffect(() => {
         spotifyApi
             .getPlaylist(playlistId)
             .then((data) => {
@@ -37,6 +40,7 @@ function Center() {
             .catch((err) => console.log("Something went wrong", err));
      }, [spotifyApi, playlistId])
 
+    //  console.log(playlist);
 
     return (
         <div className="flex-grow">
@@ -52,8 +56,24 @@ function Center() {
                 </div>
             </header>
 
-            <section className={`flex items-end space-x-7 bg-gradient-to-b to-black ${color} h-80 text-white padding-8 w-full`}>
-                {/* <img src="" alt="" /> */}
+            <section 
+                className={`flex items-end space-x-7 bg-gradient-to-b to-black ${color} h-80 text-white padding-8 w-full`}
+            >
+                <img 
+                    className="h-44 w-44 shadow-2xl"
+                    src={playlist?.images?.[0]?.url}
+                    alt="" 
+                />
+                {/* This for caption */}
+                <div>
+                    <p>PLAYLIST</p>
+                    <h1 className="text-2xl md:text-3xl xl:text-5xl font-bold">{playlist?.name}</h1>
+                </div>
+
+                {/* This for those songs */}
+                <div>
+                    <Songs />
+                </div>
             </section>
         </div>
     );
