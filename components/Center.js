@@ -1,12 +1,12 @@
 import { shuffle } from 'lodash'; 
 // import spotifyApi from '../lib/spotify';
+import Songs from '../components/Songs';
 import { useEffect, useState } from 'react';
 import useSpotify from '../hooks/useSpotify';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { ChevronDownIcon } from '@heroicons/react/outline';
 import { playlistIdState, playlistState } from '../atoms/playlistAtom';
-import Songs from '../components/Songs';
 
 const colors = [
     "from-indigo-500",
@@ -41,12 +41,15 @@ function Center() {
      }, [spotifyApi, playlistId])
 
     //  console.log(playlist);
-    console.log(playlist); 
+    // console.log(playlist); 
 
     return (
-        <div className="flex-grow">
+        <div className="flex-grow h-screen overflow-y-scroll scrollbar-hide">
             <header className="absolute top-5 right-8">
-                <div className="flex items-center bg-black space-x-3 opacity-90 hover:opactiy-80 cursor-pointer rounded-full p-1 pr- text-white">
+                <div 
+                    className="flex items-center bg-black space-x-3 opacity-90 hover:opactiy-80 cursor-pointer rounded-full p-1 pr-2 text-white"
+                    onClick={signOut}
+                >
                     <img 
                         className="rounded-full w-10 h-10"
                         src={session?.user.image} 
@@ -70,12 +73,11 @@ function Center() {
                     <p>PLAYLIST</p>
                     <h1 className="text-2xl md:text-3xl xl:text-5xl font-bold">{playlist?.name}</h1>
                 </div>
-
+            </section>
                 {/* This for those songs */}
                 <div>
                     <Songs />
                 </div>
-            </section>
         </div>
     );
 }
