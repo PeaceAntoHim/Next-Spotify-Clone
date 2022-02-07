@@ -1,7 +1,10 @@
 import { shuffle } from 'lodash'; 
+import { useRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { ChevronDownIcon } from '@heroicons/react/outline';
+import { playlistIdState, playlistState } from '../atoms/playlistAtom';
+import spotifyApi from '../lib/spotify';
 
 const colors = [
     "from-indigo-500",
@@ -17,10 +20,23 @@ const colors = [
 function Center() {
     const { data: session } = useSession();
     const [color, setColor] = useState(null);
+    const [playlistId, setPlaylistId] = useRecoilState(playlistIdState);
+    const [playlist, setPlaylist] = useRecoilState(playlistState)
 
     useEffect(() => {
         setColor(shuffle(colors).pop());
-    }, [])
+    }, [playlistId]);
+
+    /* Set a playlist */
+     useEffect=(() => {
+        spotifyApi
+            .getPlaylist(playlistId)
+            .then((data) => {
+                setPlaylist(data.body)
+            })
+            .catch((err) => console.log("Something went wrong", err));
+     }, [spotifyApi, playlistId])
+
 
     return (
         <div className="flex-grow">
