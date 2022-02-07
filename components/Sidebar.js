@@ -1,9 +1,9 @@
 import {
-    HomeIcon,
     RssIcon,
+    HomeIcon,
+    HeartIcon,
     SearchIcon,
     LibraryIcon,
-    HeartIcon,
     PlusCircleIcon,
 } from '@heroicons/react/outline';
 import { useState, useEffect } from 'react';
@@ -16,6 +16,7 @@ function Sidebar() {
     const { data: session, status } = useSession();
     /* made statment playlist */
     const [playlists, setPlaylists] = useState([]);
+    const [playlistId, setPlaylistId] = useState(null);
 
     useEffect(() => {
         if (spotifyApi.getAccessToken()) {
@@ -24,7 +25,8 @@ function Sidebar() {
             });
         }
     }, [session, spotifyApi]);
-    console.log(playlists);
+    // console.log(playlists);
+    console.log('You pick a playlist >>>', playlistId);
 
     return(
         <div className="text-gray-500 p-5 text-sm border-r border-gray-900 overflow-y-scroll scrollbar-hide h-screen">
@@ -69,12 +71,14 @@ function Sidebar() {
 
                 {/* Playlist... */}
                 {playlists.map((playlist) => (
-                    <p key={playlist.id} className="cursor-pointer hover:text-white">
+                    <p 
+                        key={playlist.id} 
+                        className="cursor-pointer hover:text-white"
+                        onClick={() => setPlaylistId(playlist.id)}
+                    >
                         {playlist.name}
                     </p>
                 ))}
-              
-
             </div>
         </div>
     )
