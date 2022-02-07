@@ -1,5 +1,12 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Before you getting started
+First you have create .env.local and login at spotify developer to get access key to access you spotify account. Then you can write this in you .env.local file
+    1. NEXT_AUTH=http://localhost:3000
+    2. NEXT_PUBLIC_CLIENT_ID=YOUR_CLIENT_ID
+    3. NEXT_PUBLIC_CLIENT_SECRET=YOUR_CLIENT_SECRET
+    4.JWT_SECRET=some_super_secret_value
+
 ## Getting Started
 
 First, run the development server:
