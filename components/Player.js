@@ -1,9 +1,21 @@
-import { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
+import { useState, useEffect } from 'react';
 import useSpotify from '../hooks/useSpotify';
 import { useSession } from 'next-auth/react';
 import useSongInfo from '../hooks/useSongInfo';
 import { currentTrackIdState, isPlayingState } from '../atoms/songAtom';
+import {
+    RewindIcon,
+    VolumeIcon as VolumeDownIcon,
+} from '@heroicons/react/outline';
+import {
+    PlayIcon,
+    PauseIcon,
+    ReplyIcon,
+    VolumeUpIcon,
+    FastForwardIcon,
+    SwitchHorizontalIcon
+} from '@heroicons/react/solid';
 
 /* This Function to made player song */
 function Player() {
@@ -30,6 +42,18 @@ function Player() {
         }
     };
 
+    const handlePlayPause = () => {
+        spotifyApi.getMyCurrentPlaybackState().then((data) => {
+            if (data.body.is_playing) {
+                spotifyApi.pause();
+                setIsPlaying(false);
+            } else {
+                spotifyApi.play();
+                setIsPlaying(true);
+            }
+        });
+    };
+
     useEffect(() => {
         if (spotifyApi.getAccessToken() && !currentTrackId) 
         {
@@ -52,6 +76,30 @@ function Player() {
                     <h3>{songInfo?.name}</h3>
                     <p>{songInfo?.artists?.[0]?.name}</p>
                 </div>
+            </div>
+
+            {/* Center in player song */}
+            <div className="flex items-center justify-evenly">
+                <SwitchHorizontalIcon className="button" />
+                <RewindIcon 
+                    // onClik={()=> spotifyApi.skipToPrevious()} -- The Api is not working
+                    className="button"
+                />
+                
+                {isPlaying ? (     
+                    <PauseIcon onClick={handlePlayPause} className="button w-10 h-10" />          
+                ) : (
+                    <PlayIcon onClick={handlePlayPause} className="button w-10 h-10" />  
+                )}
+
+                    
+                <FastForwardIcon 
+                    // onClik={()=> spotifyApi.skipToNext()} -- The Api is not working
+                    className="button"
+                />
+                <ReplyIcon className="button" />
+
+                {/*  Right in player songs */}
             </div>
         </div>
     );

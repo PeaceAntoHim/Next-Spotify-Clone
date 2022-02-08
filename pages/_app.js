@@ -1,5 +1,5 @@
 import '../styles/globals.css';
-import 'tailwindcss/tailwind.css';
+// import 'tailwindcss/tailwind.css';
 import { RecoilRoot } from 'recoil';
 import { SessionProvider } from 'next-auth/react';
 
