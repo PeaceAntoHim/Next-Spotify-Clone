@@ -8,6 +8,16 @@ First you have create .env.local and login at spotify developer to get access ke
         3. NEXT_PUBLIC_CLIENT_SECRET=YOUR_CLIENT_SECRET
         4.JWT_SECRET=some_super_secret_value
 
+## How deploy in vercel
+First of all you have create account in vercel and connect you github, gitlab or bitbucket and after that you can create new project and deploy you first web. But in this case you is diffrent you have create environment variable.
+
+        1. NEXTAUTH_URL=YOUR_DOMAIN
+        2. NEXT_PUBLIC_CLIENT_ID=YOUR_CLIENT_ID
+        3. NEXT_PUBLIC_CLIENT_SECRET=YOUR_CLIENT_SECRET
+        4. JWT_SECRET=some_super_secret_value 
+
+You can put all that to environment variables but for number one you have set to you domain.
+
 ## Getting Started
 
 First, run the development server:
