@@ -26,11 +26,12 @@ function Center() {
     const playlistId = useRecoilValue(playlistIdState)
     const [playlist, setPlaylist] = useRecoilState(playlistState);
 
+    /* This effect to suffle color theme */
     useEffect(() => {
         setColor(shuffle(colors).pop());
     }, [playlistId]);
 
-    /* Set a playlist */
+    /* This effect to set the playlist */
      useEffect(() => {
             spotifyApi
                 .getPlaylist(playlistId)
@@ -40,7 +41,7 @@ function Center() {
             .catch((err) => console.log("Something went wrong", err));
      }, [spotifyApi, playlistId])
 
-     console.log(playlist);
+    //  console.log(playlist);
     // console.log(playlist); 
 
     return (

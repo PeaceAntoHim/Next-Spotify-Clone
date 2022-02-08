@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import spotifyApi, { LOGIN_URL } from "../../../lib/spotify";
 import SpotifyProvider from "next-auth/providers/spotify";
 
-/* Logic refreshedToken */
+/* Logic refreshedToken  */
 async function refreshAccessToken(token) {
     try {
 
@@ -68,6 +68,7 @@ export default NextAuth({
             return await refreshAccessToken(token);
         },
 
+        /* This function is to get session token */
         async session({ session, token }) {
             session.user.accessToken = token.accessToken;
             session.user.refreshToken = token.refreshToken;
