@@ -40,7 +40,7 @@ function Center() {
             .catch((err) => console.log("Something went wrong", err));
      }, [spotifyApi, playlistId])
 
-    //  console.log(playlist);
+     console.log(playlist);
     // console.log(playlist); 
 
     return (
