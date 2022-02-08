@@ -6,7 +6,7 @@ import useSongInfo from '../hooks/useSongInfo';
 import { currentTrackIdState, isPlayingState } from '../atoms/songAtom';
 import {
     RewindIcon,
-    VolumeIcon as VolumeDownIcon,
+    VolumeUpIcon as VolumeDownIcon,
 } from '@heroicons/react/outline';
 import {
     PlayIcon,
@@ -87,9 +87,11 @@ function Player() {
                 />
                 
                 {isPlaying ? (     
-                    <PauseIcon onClick={handlePlayPause} className="button w-10 h-10" />          
+                    <PauseIcon onClick={handlePlayPause} 
+                    className="button w-10 h-10" />          
                 ) : (
-                    <PlayIcon onClick={handlePlayPause} className="button w-10 h-10" />  
+                    <PlayIcon onClick={handlePlayPause} 
+                    className="button w-10 h-10" />  
                 )}
 
                     
@@ -98,8 +100,20 @@ function Player() {
                     className="button"
                 />
                 <ReplyIcon className="button" />
+            </div>
 
-                {/*  Right in player songs */}
+            {/*  Right in player songs */}
+            <div className="flex items-center space-x-3 md:space-x-4 justify-end pr-5">
+                <VolumeDownIcon className="button" /> 
+                    <input 
+                        className="w-14 md:w-28"
+                        type="range"
+                        value={volume} 
+                        onChange={e => setVolume(Number(e.target.value))}
+                        min={0} 
+                        max={100}
+                    />       
+                <VolumeUpIcon className="button" />
             </div>
         </div>
     );
