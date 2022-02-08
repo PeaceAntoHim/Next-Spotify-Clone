@@ -1,11 +1,11 @@
 import {
     RssIcon,
     HomeIcon,
-    HeartIcon,
     SearchIcon,
     LibraryIcon,
     PlusCircleIcon,
 } from '@heroicons/react/outline';
+import { HeartIcon } from '@heroicons/react/solid';
 import { useState, useEffect } from 'react';
 import useSpotify from '../hooks/useSpotify';
 import { useRecoilState } from 'recoil'
@@ -29,7 +29,7 @@ function Sidebar() {
         }
     }, [session, spotifyApi]);
     // console.log(playlists);
-    console.log('You pick a playlist >>>', playlistId);
+    // console.log('You pick a playlist >>>', playlistId);
 
     return(
         <div className="text-gray-500 p-5 text-xs lg:text-sm border-r border-gray-900 overflow-y-scroll scrollbar-hide h-screen sm:max-w-[12rem] lg:max-w-[15rem] hidden md:inline-flex pb-36">
@@ -55,11 +55,11 @@ function Sidebar() {
                     <PlusCircleIcon className="h-5 w-5" />
                     <p>Create Playlist</p>
                 </button>
-                <button className="flex items-center space-x-2 hover:text-white">
+                <button className="flex items-center space-x-2 text-blue-500 hover:text-white">
                     <HeartIcon className="h-5 w-5" />
                     <p>Like Songs</p>
                 </button>   
-                <button className="flex items-center space-x-2 hover:text-white">
+                <button className="flex items-center space-x-2 text-green-500 hover:text-white">
                     <RssIcon className="h-5 w-5" />
                     <p>Your Episodes</p>
                 </button>
